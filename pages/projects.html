@@ -121,6 +121,7 @@
         /* Projects Grid Styles */
         .projects-container {
             max-width: 1200px;
+            margin-top: 0;
             margin: 0 auto;
             padding: 20px;
             display: grid;
@@ -244,6 +245,14 @@
         .detail-value {
             color: var(--text-color);
         }
+
+        .leon-title-container {
+            width: 100%;
+            height: 150px;
+            margin-top: 80px;
+            margin-bottom: 50px;
+            position: relative;
+        }
         
         @keyframes modalFadeIn {
             from {
@@ -270,7 +279,7 @@
                 margin: 20px 0;
                 flex-wrap: wrap;
             }
-            
+
             .title {
                 margin-top: 80px;
             }
@@ -313,8 +322,8 @@
         <a href="contact.html">contact</a>
         <a href="references.html">references</a>
     </div>
-    
-    <div class="title">projects</div>
+
+    <div id="canvas-container" class="leon-title-container"></div>
     
     <div class="projects-container" id="projectsGrid">
         <!-- Projects will be dynamically added here -->
@@ -343,7 +352,7 @@
                 description: "portfolio website",
                 technologies: ["HTML", "JavaScript"],
                 year: "2025",
-                link: "https://hannahchoi05.github.io/visualportfolio/index.html"
+                link: "#"
             },
             {
                 id: 2,
@@ -380,8 +389,38 @@
             // Initialize modal functionality
             initModal();
             
+        }
+
+        // Add this if you can't modify the original generateCanvas function
+        function generateCanvas(containerId) {
+            const container = document.getElementById(containerId || 'body');
             
+            canvas = document.createElement('canvas');
+            container.appendChild(canvas);
+            ctx = canvas.getContext('2d');
             
+            // Get the device pixel ratio
+            const dpr = window.devicePixelRatio || 1;
+            
+            // Set canvas dimensions based on container with pixel ratio adjustment
+            const updateSize = () => {
+                sw = container.offsetWidth;
+                sh = container.offsetHeight;
+                
+                // Set the canvas size accounting for the device pixel ratio
+                canvas.width = sw * dpr;
+                canvas.height = sh * dpr;
+                
+                // Scale the canvas display size with CSS
+                canvas.style.width = sw + 'px';
+                canvas.style.height = sh + 'px';
+                
+                // Scale the context to match
+                ctx.scale(dpr, dpr);
+            };
+            
+            updateSize();
+            window.addEventListener('resize', updateSize);
         }
 
         function toggleTheme() {
@@ -481,12 +520,13 @@
                 console.warn('Leon animation library not available');
                 return;
             }
-            
-            generateCanvas();
+
+            // Make sure canvas is created within the container
+            generateCanvas('canvas-container');
             
             leon = new LeonSans({
                 text: 'projects',
-                color: ['#000000'],
+                color: [getComputedStyle(document.documentElement).getPropertyValue('--nav-hover-color').trim()],
                 size: getSize(100),
                 weight: 500,
             });
@@ -494,6 +534,20 @@
             playDrawingAnimation();
             
             requestAnimationFrame(animate);
+        }
+
+        function animate(t) {
+            if (!leon || !ctx) return;
+            
+            requestAnimationFrame(animate);
+
+            ctx.clearRect(0, 0, sw, sh);
+
+            const x = sw / 2 - leon.rect.w / 2;
+            const y = 50; 
+            leon.position(x, y);
+
+            leon.drawColorful(ctx);
         }
 
         function playDrawingAnimation() {
@@ -510,20 +564,6 @@
                     ease: Power4.easeOut
                 });
             }
-        }
-
-        function animate(t) {
-            if (!leon || !ctx) return;
-            
-            requestAnimationFrame(animate);
-
-            ctx.clearRect(0, 0, sw, sh);
-
-            const x = sw / 2 - leon.rect.w / 2;  // Center horizontally
-            const y = 100; // Top margin
-            leon.position(x, y);
-
-            leon.drawColorful(ctx);
         }
 
         window.onload = () => {
