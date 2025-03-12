@@ -16,6 +16,39 @@ function generateCanvas() {
     moveEvent(canvas);
 }
 
+/*
+function generateCanvas(containerId) {
+    const container = document.getElementById(containerId || 'body');
+    
+    canvas = document.createElement('canvas');
+    container.appendChild(canvas);
+    ctx = canvas.getContext('2d');
+    
+    // Get the device pixel ratio
+    const dpr = window.devicePixelRatio || 1;
+    
+    // Set canvas dimensions based on container with pixel ratio adjustment
+    const updateSize = () => {
+        sw = container.offsetWidth;
+        sh = container.offsetHeight;
+        
+        // Set the canvas size accounting for the device pixel ratio
+        canvas.width = sw * dpr;
+        canvas.height = sh * dpr;
+        
+        // Scale the canvas display size with CSS
+        canvas.style.width = sw + 'px';
+        canvas.style.height = sh + 'px';
+        
+        // Scale the context to match
+        ctx.scale(dpr, dpr);
+    };
+    
+    updateSize();
+    window.addEventListener('resize', updateSize);
+}
+    */
+
 function canvasResize() {
     sw = document.body.clientWidth;
     sh = document.body.clientHeight;
