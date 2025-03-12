@@ -54,9 +54,11 @@
         
         .navigation {
             position: absolute;
-            top: 500px;
-            left: 50px;
-            z-index: 100;
+            top: 50%;
+            left: 3.125rem; 
+            transform: translateY(-50%); 
+            display: flex;
+            flex-direction: column; 
         }
         
         .navigation a {
@@ -248,7 +250,7 @@
 
             // Position text in the top left corner with appropriate margins
             const x = 50;  // Left margin
-            const y = 100; // Top margin
+            const y = 80; // Top margin
             leon.position(x, y);
 
             if (t) {
