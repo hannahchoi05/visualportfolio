@@ -1,0 +1,63 @@
+{
+  "nodes": [
+    {
+      "id": "hannah",
+      "label": "Hannah",
+      "type": "person",
+      "summary": "Computer Science BSE at Princeton University with minors in Finance, Statistics and Machine Learning. Graduating May 2027.",
+      "skills": []
+    },
+
+    { "id": "stats", "label": "Statistics", "type": "interest", "summary": " ", "skills": [] },
+    { "id": "cs", "label": "CS", "type": "interest", "summary": " ", "skills": [] },
+    { "id": "finance", "label": "Finance", "type": "interest", "summary": " ", "skills": [] },
+    { "id": "full-stack", "label": "Full-Stack Development", "type": "interest", "summary": " ", "skills": [] },
+
+    { "id": "stochasticsystems", "label": "Stochastic Systems", "type": "education", "summary": "ORF309: Probability and Stochastic Systems", "skills": ["Probability", "Stochastic Systems", "Statistics"] },
+
+    { "id": "systems", "label": "Systems", "type": "interest", "summary": " ", "skills": [] },
+    { "id": "programmingsystems", "label": "Programming Systems", "type": "education", "summary": "COS217: Introduction to Programming Systems", "skills": [] },
+
+    { "id": "ai", "label": "AI/ML", "type": "interest", "summary": " ", "skills": [] },
+    { "id": "nlp", "label": "NLP", "type": "education", "summary": "COS484: Natural Language Processing", "skills": ["Python", "Machine Learning"] },
+    { "id": "niehaus", "label": "Niehaus Center", "type": "experience", "summary": "Research Assistant (Feb 2025 - Present). Built ML-driven sentiment analysis pipelines for trade policy research. Used OpenAI API for data processing.", "skills": ["Python", "OpenAI API", "NLP", "Research"] },
+    { "id": "ml", "label": "Machine Learning", "type": "education", "summary": "COS324: Introduction to Machine Learning", "skills": ["Python"] },
+    { "id": "creditrating", "label": "Credit Rating Prediction", "type": "project", "summary": "Designed supervised learning and deep learning models to predict corporate credit ratings. Scraped data from S&P Global Market Intelligence.", "skills": ["Python", "PyTorch", "NumPy", "VertexAI", "Machine Learning"] },
+
+    { "id": "quantitative", "label": "Quantitative Data Analysis", "type": "education", "summary": "ECO480: Quantitative Data Analysis in Finance", "skills": ["Python", "Linear Algebra", "Calculus", "Probability/Statistics", "Excel"] },
+    { "id": "lse", "label": "London School of Economics", "type": "education", "summary": "Summer 2024 study abroad. GPA 4.0/4.0. Coursework in Microeconomics and Behavioral Economics.", "skills": ["Microeconomics", "Behavioral Economics"] },
+    { "id": "mirae", "label": "Mirae Asset Securities", "type": "experience", "summary": "Quant Algo Team Intern (Summer 2025). Engineered production-grade algorithmic trading system for Share Class ETF using real-time KOSCOM market data.", "skills": ["C#", "C++", "Algorithmic Trading", "Quantitative Finance"] },
+
+
+    { "id": "hoagieplan", "label": "Hoagie Plan", "type": "experience", "summary": "Team Lead (Sep 2024 - Present). Led full-stack development of Princeton's academic planner for 3k+ students. Managed team of 15 developers.", "skills": ["Python", "React", "Next.js", "TypeScript", "PostgreSQL", "Leadership"], "link": "https://plan.hoagie.io" },
+    { "id": "tigerpop", "label": "TigerPop", "type": "project", "summary": "Peer-to-peer marketplace for Princeton students to buy/sell secondhand items locally. Campus-only trusted exchanges.", "skills": ["Python", "React", "Next.js", "TypeScript", "TailwindCSS", "PostgreSQL"] },
+    { "id": "silentsignal", "label": "SilentSignal", "type": "project", "summary": "Android app for real-time audio-based violent crime detection. Implemented stacked classifiers to identify crime type and notify professionals.", "skills": ["Python", "Java", "Machine Learning", "Android"] }
+  
+],
+
+  "links": [
+    { "source": "hannah", "target": "stats" },
+    { "source": "hannah", "target": "cs" },
+    { "source": "hannah", "target": "finance" },
+
+    { "source": "stats", "target": "stochasticsystems" },
+
+    { "source": "cs", "target": "systems" },
+    { "source": "systems", "target": "programmingsystems" },
+    { "source": "cs", "target": "ai" },
+    { "source": "ai", "target": "nlp" },
+    { "source": "ai", "target": "niehaus" },
+    { "source": "ai", "target": "ml" },
+    { "source": "ai", "target": "creditrating" },
+    { "source": "ai", "target": "silentsignal" },
+    { "source": "cs", "target": "full-stack" },
+    { "source": "full-stack", "target": "hoagieplan" },
+    { "source": "full-stack", "target": "tigerpop" },
+
+    { "source": "finance", "target": "creditrating" },
+    { "source": "finance", "target": "quantitative" },
+    { "source": "cs", "target": "quantitative" },
+    { "source": "finance", "target": "lse" },
+    { "source": "finance", "target": "mirae" }
+  ]
+}
