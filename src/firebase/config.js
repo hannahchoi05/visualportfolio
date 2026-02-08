@@ -20,5 +20,5 @@ export const auth = getAuth(app);
 export const googleProvider = new GoogleAuthProvider();
 export const db = getFirestore(app);
 
-// Your email - only this email can access admin features
-export const ADMIN_EMAIL = "hannahchoi05@gmail.com" || "hc8499@princeton.edu";
+// Your email(s) - only these emails can access admin features
+export const ADMIN_EMAILS = ["hannahchoi05@gmail.com", "hc8499@princeton.edu"];

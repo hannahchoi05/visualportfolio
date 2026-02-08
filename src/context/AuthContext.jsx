@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { signInWithPopup, signOut, onAuthStateChanged } from 'firebase/auth';
-import { auth, googleProvider, ADMIN_EMAIL } from '../firebase/config';
+import { auth, googleProvider, ADMIN_EMAILS } from '../firebase/config';
 
 const AuthContext = createContext();
 
@@ -12,7 +12,7 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
-      setIsAdmin(user?.email === ADMIN_EMAIL);
+      setIsAdmin(user?.email && ADMIN_EMAILS.includes(user.email));
       setLoading(false);
     });
     return unsubscribe;
@@ -21,7 +21,7 @@ export function AuthProvider({ children }) {
   const login = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
-      if (result.user.email !== ADMIN_EMAIL) {
+      if (!ADMIN_EMAILS.includes(result.user.email)) {
         await signOut(auth);
         throw new Error('Unauthorized: Only admin can access this area');
       }
