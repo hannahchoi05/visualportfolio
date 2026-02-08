@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Github, Linkedin, Mail } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
 
 const education = [
   {
@@ -138,6 +139,86 @@ function Section({ number, title, children }) {
   );
 }
 
+// Animated card that fades in when scrolled into view
+function AnimatedCard({ children, delay = 0 }) {
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => setIsVisible(true), delay);
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+    );
+
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [delay]);
+
+  return (
+    <div
+      ref={ref}
+      style={{
+        backgroundColor: '#1a1a1a',
+        borderRadius: '8px',
+        padding: '1.5rem',
+        marginBottom: '1rem',
+        opacity: isVisible ? 1 : 0,
+        transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
+        transition: 'opacity 0.6s ease-out, transform 0.6s ease-out'
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+// Cursor glow component
+function CursorGlow() {
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setPosition({ x: e.clientX, y: e.clientY });
+      setIsVisible(true);
+    };
+
+    const handleMouseLeave = () => setIsVisible(false);
+
+    window.addEventListener('mousemove', handleMouseMove);
+    document.body.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      document.body.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, []);
+
+  return (
+    <div
+      style={{
+        position: 'fixed',
+        left: position.x,
+        top: position.y,
+        width: '400px',
+        height: '400px',
+        borderRadius: '50%',
+        background: 'radial-gradient(circle, rgba(107, 138, 253, 0.15) 0%, transparent 70%)',
+        transform: 'translate(-50%, -50%)',
+        pointerEvents: 'none',
+        zIndex: 0,
+        opacity: isVisible ? 1 : 0,
+        transition: 'opacity 0.3s ease'
+      }}
+    />
+  );
+}
+
 function Card({ children }) {
   return (
     <div style={{
@@ -161,8 +242,12 @@ export default function HomePage() {
       minHeight: '100vh', 
       backgroundColor: '#121212', 
       color: '#a0a0a0',
-      fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif"
+      fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
+      position: 'relative'
     }}>
+      {/* Cursor Glow Effect */}
+      <CursorGlow />
+
       {/* Navigation */}
       <nav style={{
         position: 'fixed',
@@ -248,7 +333,7 @@ export default function HomePage() {
         <div id="education">
           <Section number="01" title="Education">
             {education.map((edu, i) => (
-              <Card key={i}>
+              <AnimatedCard key={i} delay={i * 100}>
                 <h3 style={{ color: '#fff', fontSize: '1.1rem', marginBottom: '0.25rem' }}>{edu.school}</h3>
                 <p style={{ color: '#e07c4c', fontSize: '0.9rem', marginBottom: '1rem' }}>{edu.date}</p>
                 <ul style={{ paddingLeft: '1.25rem', margin: 0 }}>
@@ -256,7 +341,7 @@ export default function HomePage() {
                     <li key={j} style={{ marginBottom: '0.5rem', lineHeight: 1.5 }}>{detail}</li>
                   ))}
                 </ul>
-              </Card>
+              </AnimatedCard>
             ))}
           </Section>
         </div>
@@ -265,7 +350,7 @@ export default function HomePage() {
         <div id="experience">
           <Section number="02" title="Experience">
             {experience.map((exp, i) => (
-              <Card key={i}>
+              <AnimatedCard key={i} delay={i * 100}>
                 <h3 style={{ color: '#fff', fontSize: '1.1rem', marginBottom: '0.25rem' }}>{exp.company}</h3>
                 <p style={{ color: '#888', fontSize: '0.95rem', marginBottom: '0.25rem' }}>{exp.role}</p>
                 <p style={{ color: '#e07c4c', fontSize: '0.9rem', marginBottom: '1rem' }}>{exp.date}</p>
@@ -279,7 +364,7 @@ export default function HomePage() {
                     <SkillTag key={j} skill={skill} />
                   ))}
                 </div>
-              </Card>
+              </AnimatedCard>
             ))}
           </Section>
         </div>
@@ -288,7 +373,7 @@ export default function HomePage() {
         <div id="projects">
           <Section number="03" title="Projects">
             {projects.map((proj, i) => (
-              <Card key={i}>
+              <AnimatedCard key={i} delay={i * 100}>
                 <h3 style={{ color: '#fff', fontSize: '1.1rem', marginBottom: '1rem' }}>{proj.title}</h3>
                 <ul style={{ paddingLeft: '1.25rem', margin: 0 }}>
                   {proj.bullets.map((bullet, j) => (
@@ -300,7 +385,7 @@ export default function HomePage() {
                     <SkillTag key={j} skill={skill} />
                   ))}
                 </div>
-              </Card>
+              </AnimatedCard>
             ))}
           </Section>
         </div>
