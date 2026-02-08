@@ -101,6 +101,14 @@ const projects = [
     skills: ["Python", "React", "Next.js", "TypeScript", "TailwindCSS", "PostgreSQL"]
   },
   {
+    title: "Portfolio Website",
+    bullets: [
+      "Designed and developed a personal portfolio website to showcase my projects and experience, using React for the frontend and Firebase for backend data management",
+      "Implemented an interactive graph visualization of my skills and projects using react-force-graph, with data dynamically loaded from Firestore"
+    ],
+    skills: ["React", "Firebase", "JavaScript", "CSS"]
+  },
+  {
     title: "SilentSignal",
     bullets: [
       "Developed an Android app for real-time audio-based violent crime detection; implemented stacked classifiers to identify crime type and automatically notify nearby professionals"
